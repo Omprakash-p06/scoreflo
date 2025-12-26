@@ -1,0 +1,49 @@
+.actions {
+    margin-top: 20px;
+}
+
+.actions button {
+    width: 100%;
+}
+
+.preview {
+    background: rgba(132, 0, 255, 0.1);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    margin-top: 16px;
+    border: 1px solid var(--border);
+}
+
+.preview h4 {
+    margin: 0 0 10px;
+    font-size: 0.95rem;
+    color: var(--primary-light);
+}
+
+.preview ul {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+.preview li {
+    margin: 6px 0;
+}
+
+.errors {
+    display: flex;
+    gap: 12px;
+    background: rgba(255, 68, 102, 0.15);
+    color: var(--danger);
+    padding: 14px;
+    border-radius: var(--radius-sm);
+    margin-top: 16px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255, 68, 102, 0.3);
+}
+
+.errors svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+}

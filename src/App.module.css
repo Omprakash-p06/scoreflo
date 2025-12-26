@@ -1,0 +1,148 @@
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+}
+
+.header {
+    background: linear-gradient(180deg, rgba(132, 0, 255, 0.15) 0%, transparent 100%);
+    color: #fff;
+    padding: 48px 24px 32px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+}
+
+.title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    text-shadow: 0 0 40px rgba(132, 0, 255, 0.5);
+}
+
+.title svg {
+    color: var(--primary-light);
+    filter: drop-shadow(0 0 10px rgba(132, 0, 255, 0.6));
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin: 0 auto 24px;
+    max-width: 600px;
+}
+
+.headerActions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 16px;
+    flex: 1;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.card {
+    background: rgba(10, 0, 20, 0.8);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 60px rgba(132, 0, 255, 0.1);
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 80px rgba(132, 0, 255, 0.15);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.cardTitle {
+    font-size: 1.2rem;
+    color: var(--primary-light);
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cardTitle svg {
+    filter: drop-shadow(0 0 6px rgba(132, 0, 255, 0.4));
+}
+
+.cardActions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 32px 16px 24px;
+    }
+
+    .title {
+        font-size: 1.7rem;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+    }
+
+    .container {
+        padding: 16px 12px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .cardHeader {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cardActions {
+        width: 100%;
+    }
+
+    .cardActions button {
+        flex: 1;
+    }
+}

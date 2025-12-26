@@ -1,0 +1,203 @@
+.statsCard {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.tabContent {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.controls {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin: 0 0 20px;
+}
+
+.sgpaResult {
+    background: rgba(132, 0, 255, 0.1);
+    border-radius: var(--radius-sm);
+    padding: 18px;
+    margin-top: 20px;
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+}
+
+.sgpaHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.sgpaHeader svg {
+    color: var(--primary-light);
+}
+
+.sgpaHeader strong {
+    font-size: 1.35rem;
+    color: var(--accent);
+    margin-left: auto;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
+.breakdown {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.breakdownItem {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+}
+
+.suggestions {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(132, 0, 255, 0.08);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+}
+
+.suggestionHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: var(--primary-light);
+    margin-bottom: 16px;
+}
+
+.suggestionHeader svg {
+    filter: drop-shadow(0 0 6px rgba(132, 0, 255, 0.4));
+}
+
+.gradeChips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.noResults {
+    color: var(--danger);
+    font-size: 0.95rem;
+}
+
+.marksResults {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+.marksTable,
+.seeTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.marksTable th,
+.marksTable td,
+.seeTable th,
+.seeTable td {
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+
+.marksTable th,
+.seeTable th {
+    background: rgba(132, 0, 255, 0.15);
+    color: var(--primary-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.marksTable tbody tr:hover,
+.seeTable tbody tr:hover {
+    background: rgba(132, 0, 255, 0.05);
+}
+
+.notAchievable {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+.seeInput {
+    width: 85px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-family: inherit;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    transition: all var(--transition);
+}
+
+.seeInput:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(132, 0, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 600px) {
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .buttonGroup {
+        flex-direction: column;
+    }
+
+    .buttonGroup button {
+        width: 100%;
+    }
+}
