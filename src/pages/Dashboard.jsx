@@ -7,7 +7,7 @@ import ImportModal from '../components/ImportModal';
 import StatsCard from '../components/StatsCard';
 import GradeInfoCard from '../components/GradeInfoCard';
 import Notification from '../components/Notification';
-import PixelSnow from '../components/PixelSnow';
+import AnimatedBackground from '../components/AnimatedBackground';
 import MagicCard from '../components/MagicCard';
 import GlobalSpotlight from '../components/GlobalSpotlight';
 import styles from '../App.module.css';
@@ -99,13 +99,7 @@ function Dashboard() {
 
     return (
         <div className={styles.layout}>
-            <PixelSnow
-                color="#8a2be2"
-                speed={0.8}
-                density={0.25}
-                brightness={0.8}
-                variant="round"
-            />
+            <AnimatedBackground particleCount={25} color="#8a2be2" />
 
             <GlobalSpotlight
                 containerRef={containerRef}

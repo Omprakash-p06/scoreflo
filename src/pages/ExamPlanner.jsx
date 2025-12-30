@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaArrowLeft, FaRobot, FaClock, FaBook, FaChartLine, FaCalendarAlt } from 'react-icons/fa';
+import { FaArrowLeft, FaCalendarCheck, FaClock, FaBook, FaChartLine, FaCalendarAlt } from 'react-icons/fa';
 import { generateStudySchedule } from '../utils/schedulerLogic';
 import { analyzeFeasibility } from '../utils/sgpaLogic';
-import PixelSnow from '../components/PixelSnow';
+import AnimatedBackground from '../components/AnimatedBackground';
 import styles from '../App.module.css';
 
 export default function ExamPlanner() {
@@ -59,13 +59,7 @@ export default function ExamPlanner() {
 
     return (
         <div className={styles.layout}>
-            <PixelSnow
-                color="#8a2be2"
-                speed={0.8}
-                density={0.25}
-                brightness={0.8}
-                variant="round"
-            />
+            <AnimatedBackground particleCount={25} color="#8a2be2" />
 
             <div style={{ maxWidth: '900px', margin: '0 auto', padding: '30px 20px', position: 'relative', zIndex: 2 }}>
                 <header style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '30px' }}>
@@ -74,9 +68,9 @@ export default function ExamPlanner() {
                     </Link>
                     <div>
                         <h1 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '12px', color: '#fff' }}>
-                            <FaRobot style={{ color: '#8a2be2' }} /> Exam HQ
+                            <FaCalendarCheck style={{ color: '#8a2be2' }} /> Exam HQ
                         </h1>
-                        <p style={{ margin: '5px 0 0', color: '#888' }}>AI-Powered Study Strategy Generator</p>
+                        <p style={{ margin: '5px 0 0', color: '#888' }}>Smart Study Scheduler</p>
                     </div>
                 </header>
 
@@ -242,16 +236,6 @@ export default function ExamPlanner() {
                                                 }}>
                                                     {item.hoursPerDay} hrs/day
                                                 </span>
-                                            </div>
-                                            <div style={{
-                                                margin: '15px 0',
-                                                padding: '12px',
-                                                background: 'rgba(255,255,255,0.05)',
-                                                borderRadius: '8px',
-                                                borderLeft: `3px solid ${item.color}`
-                                            }}>
-                                                <strong style={{ color: item.color }}>AI Strategy:</strong>
-                                                <span style={{ color: '#ccc', marginLeft: '8px' }}>{item.strategy}</span>
                                             </div>
                                             <div style={{ fontSize: '0.9em', color: '#666', display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
                                                 <span>📚 Total: <strong style={{ color: '#aaa' }}>{item.allocatedHours} hours</strong></span>
