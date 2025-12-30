@@ -6,11 +6,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Dashboard from './pages/Dashboard';
 import ExamPlanner from './pages/ExamPlanner';
+import GlassDock from './components/GlassDock';
 import InstallPrompt from './components/InstallPrompt';
 
 /**
  * Main App component with routing
- * @returns {JSX.Element} App with routes and PWA install prompt
+ * @returns {JSX.Element} App with routes, glass dock, and PWA install prompt
  */
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/planner" element={<ExamPlanner />} />
             </Routes>
+            <GlassDock />
             <InstallPrompt />
         </BrowserRouter>
     );

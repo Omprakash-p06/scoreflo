@@ -1,62 +1,61 @@
-# 🎓 Engineering SGPA Calculator
+# 🎓 ScoreFlo - Smart SGPA Calculator
 
 A smart, interactive web tool to plan your semester, simulate results, and achieve your desired SGPA.  
-Built for VTU engineering students with a stunning dark purple theme and animated UI!
+Built for engineering students with a stunning glassmorphism design and animated UI!
 
-![SGPA Calculator Preview](https://img.shields.io/badge/React-18-blue?logo=react) ![Vite](https://img.shields.io/badge/Vite-6-purple?logo=vite) ![GSAP](https://img.shields.io/badge/GSAP-3-green?logo=greensock)
+![React](https://img.shields.io/badge/React-18-blue?logo=react) ![Vite](https://img.shields.io/badge/Vite-6-purple?logo=vite) ![PWA](https://img.shields.io/badge/PWA-Ready-green?logo=pwa)
 
 ---
 
 ## ✨ Features
 
-- **📚 Subject Management**: Add, edit, duplicate, and delete subjects with credits and internal marks
-- **🎯 Grade Planner**: Enter your desired SGPA and get all possible grade combinations (including F!)
-- **📊 Required SEE Calculator**: See exactly what SEE marks you need for each target grade
-- **🧪 SEE Simulator**: Input expected SEE marks and instantly calculate your final SGPA
-- **💾 Auto-Save**: Your data persists in localStorage - never lose your entries
-- **📱 Responsive Design**: Works beautifully on desktop and mobile
+### 📊 SGPA Calculator
+- **Subject Management**: Add, edit, duplicate, and delete subjects
+- **Grade Planner**: Enter your desired SGPA and get all possible grade combinations
+- **SEE Simulator**: Input expected marks and calculate your final SGPA
+- **Auto-Save**: Data persists in localStorage
 
-### 🎨 Premium UI Features
-- **Animated Squares Background**: Subtle diagonal-moving grid pattern
-- **MagicBento Cards**: Panels with glow effects, particles, and tilt on hover
-- **Global Spotlight**: Cursor-following light that illuminates nearby elements
-- **Glass-morphism Design**: Modern translucent dark purple aesthetic
+### 📅 Exam HQ
+- **Reality Check**: Set exam date and gap between exams
+- **Smart Scheduler**: Get study hour allocations based on credits and internals
+- **Feasibility Analysis**: See if your study plan is realistic
 
----
-
-## 🖥️ Live Demo
-
-**[Try it on Netlify →](https://sgpa-calculator2025.netlify.app/)**
+### 🎨 Premium UI
+- **Glassmorphism Design**: Fluid glass panels with backdrop blur
+- **Animated Background**: Floating purple particles
+- **Glass Dock**: macOS-style navigation dock
+- **PWA Support**: Install on Android/iOS, works offline
 
 ---
 
-## 📝 SGPA Formula (VTU)
+## 🎓 Grading Systems
 
-> **SGPA = 10 − Σ[(0.05 × credits) × n]**
+### Currently Supported: VTU (M S Ramaiah Institute of Technology)
 
-| Grade | Marks Range | n value |
-|-------|------------|---------|
-| O     | 90-100     | 0       |
-| A+    | 80-89      | 1       |
-| A     | 70-79      | 2       |
-| B+    | 60-69      | 3       |
-| B     | 50-59      | 4       |
-| C     | 45-49      | 5       |
-| P     | 40-44      | 6       |
-| F     | <40        | 10      |
+| Grade | Marks Range | Grade Points |
+|-------|-------------|--------------|
+| O     | 90-100      | 10           |
+| A+    | 80-89       | 9            |
+| A     | 70-79       | 8            |
+| B+    | 60-69       | 7            |
+| B     | 50-59       | 6            |
+| C     | 45-49       | 5            |
+| P     | 40-44       | 4            |
+| F     | <40         | 0            |
 
-### Marks Breakdown (per subject = 100 marks)
-- **Internal (50)**: CIE average (30) + Internal-Internal component (20)
-- **External (50)**: SEE paper (100) ÷ 2 (except 1-credit courses)
+**SGPA Formula**: `SGPA = Σ(Grade Points × Credits) / Σ(Credits)`
+
+> 🔜 **Coming Soon**: Settings panel to choose from multiple grading systems (Anna University, Mumbai University, JNTU, etc.)
 
 ---
 
 ## 🛠️ Tech Stack
 
 - **Frontend**: React 18 + Vite 6
-- **Styling**: CSS Modules + CSS Variables
-- **Animations**: GSAP + Framer Motion
+- **Styling**: CSS Modules + Glassmorphism
+- **Routing**: React Router DOM
 - **Icons**: React Icons
+- **PWA**: Vite PWA Plugin + Workbox
 - **Deployment**: Netlify
 
 ---
@@ -83,26 +82,27 @@ npm run build
 ## 📁 Project Structure
 
 ```
-sgpa-calculator/
+scoreflo/
 ├── src/
 │   ├── components/
-│   │   ├── Squares.jsx          # Animated background
-│   │   ├── MagicCard.jsx        # Card with glow/tilt effects
-│   │   ├── GlobalSpotlight.jsx  # Cursor spotlight
-│   │   ├── SubjectTable.jsx     # Main data table
-│   │   ├── StatsCard.jsx        # Grade Planner & SEE Simulator
-│   │   ├── GradeInfoCard.jsx    # Grade reference info
-│   │   ├── AddSubjectModal.jsx  # Add subject form
-│   │   └── ImportModal.jsx      # Bulk import
+│   │   ├── AnimatedBackground.jsx  # CSS particle background
+│   │   ├── GlassDock.jsx           # Navigation dock
+│   │   ├── InstallPrompt.jsx       # PWA install banner
+│   │   ├── MagicCard.jsx           # Card with effects
+│   │   ├── SubjectTable.jsx        # Subject data table
+│   │   ├── StatsCard.jsx           # SGPA calculator
+│   │   └── ...
+│   ├── pages/
+│   │   ├── Dashboard.jsx           # Main SGPA page
+│   │   └── ExamPlanner.jsx         # Exam HQ page
 │   ├── utils/
-│   │   └── sgpaLogic.js         # SGPA calculation engine
+│   │   ├── sgpaLogic.js            # SGPA calculations
+│   │   └── schedulerLogic.js       # Study scheduler
 │   ├── App.jsx
-│   ├── App.module.css
-│   └── index.css                # Global styles & theme
-├── index.html
-├── package.json
+│   └── index.css
+├── netlify.toml
 ├── vite.config.js
-└── netlify.toml
+└── package.json
 ```
 
 ---
@@ -110,6 +110,12 @@ sgpa-calculator/
 ## 🙋‍♂️ Contributing
 
 Pull requests are welcome! For major changes, please open an issue first.
+
+### Planned Features:
+- [ ] Settings panel with grading system selection
+- [ ] More university grading systems
+- [ ] Export/Import data as JSON
+- [ ] Dark/Light theme toggle
 
 ---
 
@@ -119,4 +125,4 @@ If this helped you plan your semester, give it a ⭐ on [GitHub](https://github.
 
 ---
 
-Made with 💜 for engineering students
+Made with 💜 for engineering students | M S Ramaiah Institute of Technology

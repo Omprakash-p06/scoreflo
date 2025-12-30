@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { FaPlus, FaFileImport, FaGithub, FaInfoCircle, FaRocket } from 'react-icons/fa';
+import { FaPlus, FaFileImport, FaInfoCircle } from 'react-icons/fa';
 import SubjectTable from '../components/SubjectTable';
 import AddSubjectModal from '../components/AddSubjectModal';
 import ImportModal from '../components/ImportModal';
@@ -135,19 +134,6 @@ function Dashboard() {
                 <p className={styles.subtitle}>
                     Plan your semester, simulate results, and hit your target SGPA.
                 </p>
-                <div className={styles.headerActions}>
-                    <Link to="/planner" className="btn">
-                        <FaRocket /> Launch Exam HQ
-                    </Link>
-                    <a
-                        href="https://github.com/Omprakash-p06/sgpa-calculator"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn secondary"
-                    >
-                        <FaGithub /> GitHub
-                    </a>
-                </div>
             </header>
 
             <main className={styles.container} ref={containerRef}>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaArrowLeft, FaCalendarCheck, FaClock, FaBook, FaChartLine, FaCalendarAlt } from 'react-icons/fa';
+import { FaCalendarCheck, FaClock, FaBook, FaChartLine, FaCalendarAlt } from 'react-icons/fa';
 import { generateStudySchedule } from '../utils/schedulerLogic';
 import { analyzeFeasibility } from '../utils/sgpaLogic';
 import AnimatedBackground from '../components/AnimatedBackground';
@@ -61,17 +61,12 @@ export default function ExamPlanner() {
         <div className={styles.layout}>
             <AnimatedBackground particleCount={25} color="#8a2be2" />
 
-            <div style={{ maxWidth: '900px', margin: '0 auto', padding: '30px 20px', position: 'relative', zIndex: 2 }}>
-                <header style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '30px' }}>
-                    <Link to="/" className="btn secondary">
-                        <FaArrowLeft /> Back to Dashboard
-                    </Link>
-                    <div>
-                        <h1 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '12px', color: '#fff' }}>
-                            <FaCalendarCheck style={{ color: '#8a2be2' }} /> Exam HQ
-                        </h1>
-                        <p style={{ margin: '5px 0 0', color: '#888' }}>Smart Study Scheduler</p>
-                    </div>
+            <div style={{ maxWidth: '900px', margin: '0 auto', padding: '30px 20px 100px', position: 'relative', zIndex: 2 }}>
+                <header style={{ marginBottom: '30px', textAlign: 'center' }}>
+                    <h1 style={{ margin: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', color: '#fff' }}>
+                        <FaCalendarCheck style={{ color: '#8a2be2' }} /> Exam HQ
+                    </h1>
+                    <p style={{ margin: '8px 0 0', color: '#888' }}>Smart Study Scheduler</p>
                 </header>
 
                 {subjects.length === 0 ? (

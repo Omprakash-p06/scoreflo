@@ -1,60 +1,50 @@
 /**
- * SGPA Calculation Logic - Deduction Method
- * Formula: SGPA = 10 - Σ[(0.05 × credits) × n]
- * 
- * Based on VTU Engineering Grading System:
- * - Total marks per subject: 100 (50 internal + 50 SEE)
- * - Internal: CIE average (30) + Internal-Internal component (20) = 50 marks
- * - SEE: 100 mark paper / 2 = 50 marks (except 1-credit courses: 50/50)
+ * SGPA Calculation Logic
+ * Supports multiple grading systems (VTU, PES, RVCE, IITs)
+ * Uses standard SGPA formula: SGPA = Σ(Credits × GradePoints) / Σ(Credits)
  */
 
-// Grade to penalty 'n' mapping
+import { getCurrentSystem, marksToGrade as systemMarksToGrade, sgpaToPercentage } from './gradingSystems';
+
+/**
+ * Get grade mappings from current grading system
+ */
+function getGradeMappings() {
+    const system = getCurrentSystem();
+    const gradeToPoint = {};
+    const pointToGrade = {};
+    const gradeMinMarks = {};
+    const allGrades = [];
+    const passingGrades = [];
+
+    system.gradeScale.forEach((grade) => {
+        gradeToPoint[grade.letter] = grade.point;
+        pointToGrade[grade.point] = grade.letter;
+        if (grade.minMarks !== undefined) {
+            gradeMinMarks[grade.letter] = grade.minMarks;
+        }
+        allGrades.push(grade.letter);
+        if (grade.point >= system.passingPoint) {
+            passingGrades.push(grade.letter);
+        }
+    });
+
+    return { gradeToPoint, pointToGrade, gradeMinMarks, allGrades, passingGrades, system };
+}
+
+// Legacy exports for backward compatibility
 export const gradeToN = {
-    "O": 0,    // 90-100
-    "A+": 1,   // 80-89
-    "A": 2,    // 70-79
-    "B+": 3,   // 60-69
-    "B": 4,    // 50-59
-    "C": 5,    // 45-49
-    "P": 6,    // 40-44
-    "F": 10    // <40
+    "O": 0, "A+": 1, "A": 2, "B+": 3, "B": 4, "C": 5, "P": 6, "F": 10
 };
-
-// All n values and their corresponding grades (for suggestions)
-// Note: F has n=10, so we need a special mapping
 export const nToGrade = {
-    0: "O",
-    1: "A+",
-    2: "A",
-    3: "B+",
-    4: "B",
-    5: "C",
-    6: "P",
-    10: "F"
+    0: "O", 1: "A+", 2: "A", 3: "B+", 4: "B", 5: "C", 6: "P", 10: "F"
 };
-
-// All possible n values in order (for iteration)
 export const allNValues = [0, 1, 2, 3, 4, 5, 6, 10];
-
-// Passing grades only (excluding F) - used for suggestions
 export const passingNValues = [0, 1, 2, 3, 4, 5, 6];
-
-// Passing grades (excluding F) for UI
 export const passingGrades = ["O", "A+", "A", "B+", "B", "C", "P"];
-
-// Minimum marks required for each grade
 export const gradeMinMarks = {
-    "O": 90,
-    "A+": 80,
-    "A": 70,
-    "B+": 60,
-    "B": 50,
-    "C": 45,
-    "P": 40,
-    "F": 0
+    "O": 90, "A+": 80, "A": 70, "B+": 60, "B": 50, "C": 45, "P": 40, "F": 0
 };
-
-// All available grades
 export const allGrades = ["O", "A+", "A", "B+", "B", "C", "P", "F"];
 
 /**
