@@ -3,6 +3,7 @@ node_modules/
 
 # Production build
 dist/
+build/
 
 # Editor directories and files
 .idea/
@@ -14,20 +15,44 @@ dist/
 # OS files
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # Environment files
 .env
 .env.local
 .env.*.local
+.env.production
+.env.development
 
 # Log files
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+*.log
 
 # Local netlify folder
 .netlify/
 
+# Cache directories
+.cache/
+.parcel-cache/
+.eslintcache
+*.tsbuildinfo
+
+# PWA development files (generated)
+dev-dist/
+
+# Test coverage
+coverage/
+
 # Optional: lock files (uncomment if you don't want to track them)
 # package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Temporary files
+*.tmp
+*.temp
+.temp/
+.tmp/
