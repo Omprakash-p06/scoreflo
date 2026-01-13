@@ -60,31 +60,48 @@ export function calculateTotal(internals, see, credits) {
 }
 
 /**
- * Get grade from total marks
+ * Get grade from total marks using current grading system
  */
 export function getGradeFromTotal(total) {
-    if (total >= 90) return "O";
-    if (total >= 80) return "A+";
-    if (total >= 70) return "A";
-    if (total >= 60) return "B+";
-    if (total >= 50) return "B";
-    if (total >= 45) return "C";
-    if (total >= 40) return "P";
-    return "F";
+    const system = getCurrentSystem();
+
+    for (const grade of system.gradeScale) {
+        if (grade.minMarks !== undefined && grade.maxMarks !== undefined) {
+            if (total >= grade.minMarks && total <= grade.maxMarks) {
+                return grade.letter;
+            }
+        }
+    }
+
+    // Return fail grade if no match
+    const failGrade = system.gradeScale.find(g => g.point === 0);
+    return failGrade ? failGrade.letter : 'F';
 }
 
 /**
- * Get penalty 'n' from total marks
+ * Get grade points from total marks using current grading system
+ */
+export function getGradePointFromTotal(total) {
+    const system = getCurrentSystem();
+
+    for (const grade of system.gradeScale) {
+        if (grade.minMarks !== undefined && grade.maxMarks !== undefined) {
+            if (total >= grade.minMarks && total <= grade.maxMarks) {
+                return grade.point;
+            }
+        }
+    }
+
+    return 0; // Fail
+}
+
+/**
+ * Get penalty 'n' from total marks (legacy VTU method)
+ * Note: This is kept for backward compatibility
  */
 export function getNFromTotal(total) {
-    if (total >= 90) return 0;
-    if (total >= 80) return 1;
-    if (total >= 70) return 2;
-    if (total >= 60) return 3;
-    if (total >= 50) return 4;
-    if (total >= 45) return 5;
-    if (total >= 40) return 6;
-    return 10;
+    const grade = getGradeFromTotal(total);
+    return gradeToN[grade] !== undefined ? gradeToN[grade] : 10;
 }
 
 /**
