@@ -14,8 +14,12 @@ function GradeInfoCard() {
     const grades = system.gradeScale.map((grade) => {
         let range = '';
         if (grade.minMarks !== undefined && grade.maxMarks !== undefined) {
-            if (grade.minMarks === 0) {
-                range = `<${system.gradeScale.find(g => g.point > 0 && g.minMarks !== undefined)?.minMarks || 40}`;
+            if (grade.point === 0) {
+                // For fail grade, show "<{passing threshold}"
+                // Find the lowest passing grade's minMarks
+                const passingGrades = system.gradeScale.filter(g => g.point > 0 && g.minMarks !== undefined);
+                const lowestPassing = passingGrades.reduce((min, g) => g.minMarks < min.minMarks ? g : min, passingGrades[0]);
+                range = `<${lowestPassing?.minMarks || 40}`;
             } else {
                 range = `${grade.minMarks}-${grade.maxMarks}`;
             }
@@ -23,14 +27,32 @@ function GradeInfoCard() {
             range = `${grade.point} pts`;
         }
 
-        // Create className from letter (remove special chars)
-        const className = grade.letter.replace(/[^a-zA-Z]/g, '') || 'default';
+        // Map grade letter to CSS class
+        // Handle special characters: + becomes "plus", - becomes "minus", * becomes "star"
+        let className = grade.letter
+            .replace(/\+/g, 'plus')
+            .replace(/-/g, 'minus')
+            .replace(/\*/g, 'star')
+            .replace(/[^a-zA-Z]/g, '');
+
+        // Map to standard color classes based on grade point
+        // This ensures all grading systems get proper colors
+        let colorClass = '';
+        if (grade.point >= 10) colorClass = 'O';
+        else if (grade.point >= 9) colorClass = 'Aplus';
+        else if (grade.point >= 8) colorClass = 'A';
+        else if (grade.point >= 7) colorClass = 'Bplus';
+        else if (grade.point >= 6) colorClass = 'B';
+        else if (grade.point >= 5) colorClass = 'C';
+        else if (grade.point >= 4) colorClass = 'P';
+        else colorClass = 'F';
 
         return {
             grade: grade.letter,
             range,
             point: grade.point,
-            className,
+            className: className || 'default',
+            colorClass,
         };
     });
 
@@ -62,21 +84,10 @@ function GradeInfoCard() {
             </h3>
 
             <div className={styles.gradeChips}>
-                {grades.map(({ grade, range, point, className }) => (
+                {grades.map(({ grade, range, colorClass }) => (
                     <div key={grade} className="grade-chip">
                         <span className="chip-label">{grade}</span>
-                        <span
-                            className={`chip-grade ${className}`}
-                            style={{
-                                background: point === 0
-                                    ? 'var(--grade-f)'
-                                    : point >= 9
-                                        ? 'var(--grade-o)'
-                                        : point >= 7
-                                            ? 'var(--grade-a)'
-                                            : 'var(--grade-b)'
-                            }}
-                        >
+                        <span className={`chip-grade ${colorClass}`}>
                             {range}
                         </span>
                     </div>
@@ -86,9 +97,11 @@ function GradeInfoCard() {
             <div className={styles.formula}>
                 <strong>SGPA Formula:</strong>
                 <span>SGPA = Σ(Credits × Grade Points) / Σ(Credits)</span>
-                <span className={styles.note}>
-                    Percentage: {getFormulaText()}
-                </span>
+                {system.percentageFormula && system.percentageFormula !== 'none' && (
+                    <span className={styles.note}>
+                        Percentage (approx): {getFormulaText()}
+                    </span>
+                )}
             </div>
 
             <div

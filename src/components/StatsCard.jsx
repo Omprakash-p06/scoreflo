@@ -18,6 +18,7 @@ import {
     nToGrade,
     calculateTotal
 } from '../utils/sgpaLogic';
+import CalculationPanel from './CalculationPanel';
 import styles from './StatsCard.module.css';
 
 function StatsCard({ subjects, onUpdate }) {
@@ -141,20 +142,16 @@ function StatsCard({ subjects, onUpdate }) {
 
                     {/* SGPA from Desired Grades */}
                     {breakdown.length > 0 && (
-                        <div className={styles.sgpaResult}>
-                            <div className={styles.sgpaHeader}>
-                                <FaStar />
-                                <span>SGPA with Desired Grades:</span>
-                                <strong>{sgpaFromGrades.toFixed(2)}</strong>
+                        <>
+                            <div className={styles.sgpaResult}>
+                                <div className={styles.sgpaHeader}>
+                                    <FaStar />
+                                    <span>SGPA with Desired Grades:</span>
+                                    <strong>{sgpaFromGrades.toFixed(2)}</strong>
+                                </div>
                             </div>
-                            <div className={styles.breakdown}>
-                                {breakdown.map((item, idx) => (
-                                    <span key={idx} className={styles.breakdownItem}>
-                                        {item.name}: {item.grade} (−{item.deduction.toFixed(2)})
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
+                            <CalculationPanel subjects={subjects} sgpa={sgpaFromGrades} />
+                        </>
                     )}
 
                     {/* Suggestions */}

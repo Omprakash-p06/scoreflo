@@ -8,7 +8,6 @@
  */
 export const GRADING_SYSTEMS = {
     // M S Ramaiah Institute of Technology (Default)
-    // Based on Official RIT Examination Regulations
     MSRIT: {
         id: 'MSRIT',
         name: 'M S Ramaiah Institute of Technology',
@@ -26,22 +25,8 @@ export const GRADING_SYSTEMS = {
         ],
         passingGrade: 'P',
         passingPoint: 4,
-        percentageFormula: 'direct', // SGPA × 10 (standard formula)
-        specialGrades: ['I', 'X'], // I: Incomplete, X: SEE fail but CIE pass
-        // Additional MSRIT-specific info
-        cieMax: 50,       // CIE out of 50
-        seeMax: 100,      // SEE out of 100, scaled to 50
-        ciePassMin: 20,   // Min 40% CIE (20/50)
-        seePassMin: 35,   // Min 35% SEE (35/100)
-        overallPassMin: 40, // Min 40% overall (40/100)
-        attendanceMin: 85,  // 85% attendance required
-        // Classification thresholds
-        classification: [
-            { min: 7.0, label: 'First Class with Distinction (FCD)' },
-            { min: 6.0, label: 'First Class (FC)' },
-            { min: 5.0, label: 'Second Class (SC)' },
-            { min: 4.0, label: 'Pass (PS)' },
-        ],
+        percentageFormula: 'direct', // Percentage = SGPA × 10
+        specialGrades: ['I', 'X', 'NE', 'AU', 'AB', 'DX'],
     },
 
     // VTU 2021-2022 Scheme
@@ -406,14 +391,6 @@ export function sgpaToPercentage(sgpa, system = null) {
 export function getClassification(cgpa, system = null) {
     const currentSystem = system || getCurrentSystem();
 
-    // Use system-specific classification if available
-    if (currentSystem.classification) {
-        for (const cls of currentSystem.classification) {
-            if (cgpa >= cls.min) return cls.label;
-        }
-        return 'Fail';
-    }
-
     if (currentSystem.category === 'IIT') {
         if (cgpa >= 8.0) return 'Excellent';
         if (cgpa >= 7.0) return 'Very Good';
@@ -423,20 +400,11 @@ export function getClassification(cgpa, system = null) {
         return 'Fail';
     }
 
-    // MSRIT classification (based on official RIT regulations)
-    if (currentSystem.id === 'MSRIT') {
-        if (cgpa >= 7.0) return 'First Class with Distinction (FCD)';
-        if (cgpa >= 6.0) return 'First Class (FC)';
-        if (cgpa >= 5.0) return 'Second Class (SC)';
-        if (cgpa >= 4.0) return 'Pass (PS)';
-        return 'Fail';
-    }
-
-    // VTU/RVCE classification
-    if (cgpa >= 7.75) return 'First Class with Distinction';
-    if (cgpa >= 6.75) return 'First Class';
-    if (cgpa >= 5.75) return 'Second Class';
-    if (cgpa >= 4.0) return 'Pass Class';
+    // MSRIT/VTU classification (based on official handbook)
+    if (cgpa >= 7.0) return 'First Class with Distinction (FCD)';
+    if (cgpa >= 6.0) return 'First Class (FC)';
+    if (cgpa >= 5.0) return 'Second Class (SC)';
+    if (cgpa >= 4.0) return 'Pass (PS)';
     return 'Fail';
 }
 

@@ -537,4 +537,129 @@ body {
   .modal-content {
     width: 95%;
   }
+
+  /* Optimize blur effects on mobile for performance */
+  .modal-content,
+  .magic-card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Make grade chips wrap nicely on mobile */
+  .grade-chip {
+    padding: 4px 10px;
+    font-size: 0.85rem;
+  }
+
+  .chip-grade {
+    padding: 3px 8px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Small phone optimizations */
+@media (max-width: 480px) {
+  :root {
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  .btn {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    gap: 6px;
+  }
+
+  .btn.small {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+
+  /* Reduce shadow intensity on mobile */
+  .magic-card {
+    box-shadow: 0 4px 16px rgba(132, 0, 255, 0.15);
+  }
+
+  .modal-content {
+    width: 100%;
+    max-height: 95vh;
+    border-radius: var(--radius);
+    margin: 10px;
+  }
+
+  .modal-header {
+    padding: 14px 16px;
+  }
+
+  .modal-header h2 {
+    font-size: 1rem;
+  }
+
+  .modal-body {
+    padding: 16px;
+  }
+
+  /* Compact grade chips for small screens */
+  .grade-chip {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+
+  .chip-label {
+    margin-right: 4px;
+    font-size: 0.75rem;
+  }
+
+  .chip-grade {
+    padding: 2px 6px;
+    font-size: 0.7rem;
+  }
+
+  /* Table scrolling on mobile */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* Reduce animations on mobile for performance */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.2s !important;
+    transition-duration: 0.15s !important;
+  }
+}
+
+/* Performance: Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Glassmorphism utility class */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+}
+
+.glass-panel-dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
 }
