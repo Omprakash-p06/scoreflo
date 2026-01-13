@@ -73,10 +73,10 @@ function GradeInfoCard() {
     return (
         <MagicCard
             className={styles.card}
-            enableTilt={true}
-            enableMagnetism={true}
+            enableTilt={false}
+            enableMagnetism={false}
             enableParticles={false}
-            clickEffect={true}
+            clickEffect={false}
         >
             <h3 className={styles.title}>
                 <FaInfoCircle />

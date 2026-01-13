@@ -60,17 +60,51 @@
 
 html {
   scroll-behavior: smooth;
+  /* iOS rubber band scroll */
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
   background: var(--bg);
   min-height: 100vh;
+  min-height: -webkit-fill-available;
+  /* iOS Safari fix */
   font-family: var(--font-family);
   color: var(--text);
   margin: 0;
   padding: 0;
+  /* iOS safe area padding */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent text size adjustment on orientation change */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Disable pull-to-refresh on Chrome/Android */
+  overscroll-behavior-y: contain;
+  /* iOS tap highlight */
+  -webkit-tap-highlight-color: rgba(138, 43, 226, 0.2);
+}
+
+/* iOS/Android touch optimizations */
+button,
+a,
+input,
+select,
+textarea,
+[role="button"] {
+  /* Minimum touch target size for accessibility (44px recommended by Apple) */
+  min-height: 44px;
+  /* Remove iOS input shadows */
+  -webkit-appearance: none;
+  appearance: none;
+  /* Touch feedback */
+  -webkit-tap-highlight-color: rgba(138, 43, 226, 0.2);
+  /* Prevent zoom on double tap */
+  touch-action: manipulation;
 }
 
 /* Notification Toast */
@@ -662,4 +696,193 @@ body {
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-sm);
+}
+
+/* ========================================
+   iOS & Android Native-like Styles
+   ======================================== */
+
+/* iOS-style input fields */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+  font-size: 16px;
+  /* Prevents iOS zoom on focus */
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.25);
+  outline: none;
+}
+
+/* iOS-style buttons with press effect */
+.btn {
+  border-radius: 12px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(132, 0, 255, 0.2);
+}
+
+/* iOS-style select dropdown */
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a855f7' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+/* iOS-style toggle switch (if used) */
+.toggle-switch {
+  width: 51px;
+  height: 31px;
+  border-radius: 31px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease;
+}
+
+.toggle-switch.active {
+  background: var(--primary);
+}
+
+/* Card pressed state for touch feedback */
+.magic-card:active {
+  transform: scale(0.99);
+}
+
+/* iOS-style navigation dock */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+
+  .glass-dock,
+  [class*="GlassDock"] {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    bottom: 0 !important;
+  }
+}
+
+/* Momentum scrolling for lists */
+.scrollable,
+[class*="Table"],
+[class*="List"] {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* iOS-style action sheets / modals */
+@media (max-width: 480px) {
+  .modal-content {
+    border-radius: 20px 20px 0 0;
+    margin: 0;
+    margin-top: auto;
+    max-height: 90vh;
+    animation: slideUp 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Bottom sheet style header */
+  .modal-header {
+    border-radius: 20px 20px 0 0;
+  }
+
+  /* Drag handle indicator */
+  .modal-content::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+    z-index: 10;
+  }
+}
+
+/* Android ripple effect on buttons */
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  border-radius: inherit;
+}
+
+.btn:active::after {
+  transform: scale(2);
+  opacity: 1;
+  transition: transform 0s, opacity 0s;
+}
+
+/* Landscape mode optimizations */
+@media (orientation: landscape) and (max-height: 500px) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .modal-content {
+    max-height: 95vh;
+    border-radius: var(--radius);
+  }
+
+  /* Hide dock in landscape on small screens */
+  .glass-dock,
+  [class*="GlassDock"] {
+    transform: translateX(-50%) scale(0.9);
+    bottom: 8px !important;
+  }
+}
+
+/* High DPI display optimization */
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+  * {
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+}
+
+/* Dark mode specific (iOS/Android dark mode) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
+
+/* Notch-friendly layout (iPhone X+, Android punch-hole) */
+@supports (padding-top: env(safe-area-inset-top)) {
+
+  .app-header,
+  header,
+  [class*="Header"] {
+    padding-top: max(16px, env(safe-area-inset-top));
+  }
 }

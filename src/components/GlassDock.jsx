@@ -46,6 +46,9 @@ export default function GlassDock() {
                     WebkitBackdropFilter: 'blur(24px) saturate(200%)',
                     borderRadius: '20px',
                     padding: '12px 20px',
+                    // iOS safe area support
+                    paddingBottom: 'calc(12px + env(safe-area-inset-bottom, 0px))',
+                    marginBottom: 'env(safe-area-inset-bottom, 0px)',
                     // Glass border
                     border: '1px solid rgba(255, 255, 255, 0.15)',
                     // Multi-layer shadow for depth
