@@ -653,12 +653,8 @@ textarea,
     font-size: 0.7rem;
   }
 
-  /* Table scrolling on mobile */
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
+  /* Table scrolling on mobile - use wrapper, not table directly */
+  /* Note: Tables should keep their display:table, scroll wrapper handles overflow */
 
   /* Reduce animations on mobile for performance */
   *,

@@ -97,15 +97,74 @@
 }
 
 @media (max-width: 600px) {
+    .tableWrapper {
+        /* Ensure horizontal scroll is obvious */
+        margin: 0 -16px;
+        padding: 0 16px;
+        /* iOS momentum scrolling */
+        -webkit-overflow-scrolling: touch;
+        /* Show scrollbar on mobile */
+        scrollbar-width: thin;
+        /* Fade indicator for more content */
+        mask-image: linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
+    }
+
+    .table {
+        /* Ensure table doesn't shrink columns too much */
+        min-width: 500px;
+    }
 
     .table th,
     .table td {
-        padding: 10px 8px;
-        font-size: 0.9rem;
+        padding: 12px 10px;
+        font-size: 0.85rem;
+        /* Prevent text wrapping for headers */
+        white-space: nowrap;
     }
 
+    .table th {
+        font-size: 0.7rem;
+        padding: 10px 8px;
+    }
+
+    /* Make cells more compact on mobile */
+    .editableCell {
+        min-width: 60px;
+    }
+
+    /* Actions column - horizontal layout on mobile for easier access */
     .actionsCell {
-        flex-direction: column;
+        display: flex;
+        flex-direction: row;
         gap: 6px;
+        flex-wrap: nowrap;
+    }
+
+    .actionBtn {
+        min-width: 36px !important;
+        min-height: 36px !important;
+        padding: 6px !important;
+    }
+
+    .inlineInput,
+    .inlineSelect {
+        padding: 6px 8px;
+        font-size: 0.9rem;
+        /* Prevent iOS zoom on focus */
+        font-size: 16px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 380px) {
+    .table {
+        min-width: 450px;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px 6px;
+        font-size: 0.8rem;
     }
 }
